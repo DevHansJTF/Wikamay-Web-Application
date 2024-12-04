@@ -1,0 +1,375 @@
+/* CSS Variables */
+:root {
+    --app-padding: 20px;
+    --border-radius: 20px;
+    --primary-color: #ff9838;
+    --secondary-color: #6b4db2;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.2s;
+    --section-spacing: 35px;
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body Layout */
+body {
+    min-height: 100vh;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+/* Main Container - Update */
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    height: 620px;
+    background: #ea84f5;
+    border-radius: var(--border-radius);
+    padding: var(--app-padding);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+/* Splash background styling */
+.splash-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.splash-background img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
+}
+
+/* Adjust other container elements to appear above the splash */
+.header, .menu-grid, .navbar, .progress-container, .quiz-progress-button {
+    position: relative;
+    z-index: 2;
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    margin-bottom: var(--section-spacing);
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    height: 110px;
+    width: 100%;
+    background: #FFFFF4;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.header-content img {
+    max-width: 320px;
+    height: auto;
+}
+
+.progress-header img {
+    max-width: 400px;
+    height: auto;
+}
+
+.quiz-header img {
+    max-width: 400px;
+    height: auto;
+}
+
+/* Menu Grid - Update */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--section-spacing);
+    padding: 0 25px;
+    flex: 1;
+    margin-bottom: 0; /* Remove bottom margin */
+}
+
+/* Menu Item Styles */
+.menu-item {
+    position: relative;
+    aspect-ratio: 1;
+    cursor: pointer;
+    transition: transform var(--transition-speed);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    padding: 0;
+    width: 100%;
+    max-width: 120px;
+    margin-left: -2px;
+}
+
+/* Image styling within menu items */
+.menu-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* Hover effect */
+.menu-item:hover {
+    transform: translateY(-2px);
+}
+
+/* Navigation Bar - Updated */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 25px 0;
+    background: #FFFFF4;
+    border-radius: 25px 25px 0 0;
+    margin: 0 calc(-1 * var(--app-padding));
+    margin-bottom: calc(-1 * var(--app-padding)); /* Keep this for edge-to-edge effect */
+    margin-top: auto; /* This pushes navbar to bottom */
+    min-height: 100px;
+    position: relative; /* Added to ensure proper stacking */
+    bottom: 0; /* Ensures navbar stays at bottom */
+}
+
+.nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+}
+
+.nav-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    margin-bottom: 20px;
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: #ea84f5;
+    transition: width 0.3s ease, left 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+/* Progress Container */
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.progress-container::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.progress-item {
+    background: #FFFFF4;
+    border-radius: 15px;
+    padding: 12px 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 80px;
+}
+
+.progress-icon {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.progress-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.progress-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-label {
+    color: #FFA500;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #98FB98, #32CD32);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* Quiz Progress Button */
+.quiz-progress-button {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.quiz-btn {
+    background: #FFFFF4;
+    border: 1px solid black;
+    padding: 10px 20px;     
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: #FFA500;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: right;
+}
+
+.quiz-btn:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+.quiz-btn img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    :root {
+        --section-spacing: 30px;
+    }
+    
+    .menu-grid {
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    .menu-item {
+        max-width: 100px;
+    }
+    
+    .navbar {
+        padding: 20px 0;
+        min-height: 90px;
+    }
+    
+    .nav-item {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --section-spacing: 25px;
+    }
+    
+    .menu-grid {
+        gap: 15px;
+        padding: 0 15px;
+    }
+    
+    .menu-item {
+        max-width: 90px;
+    }
+    
+    .navbar {
+        padding: 15px 0;
+        min-height: 80px;
+    }
+    
+    .nav-item {
+        width: 45px;
+        height: 45px;
+    }
+}
+
+@media (max-width: 320px) {
+    :root {
+        --section-spacing: 20px;
+    }
+    
+    .menu-grid {
+        gap: 10px;
+        padding: 0 10px;
+    }
+    
+    .menu-item {
+        max-width: 80px;
+    }
+    
+    .navbar {
+        padding: 12px 0;
+        min-height: 70px;
+    }
+    
+    .nav-item {
+        width: 40px;
+        height: 40px;
+    }
+}
