@@ -179,6 +179,10 @@ body {
     margin-bottom: 20px;
 }
 
+.nav-item:hover img {
+    transform: translateY(-5px); /* This creates the jumping effect */
+}
+
 .nav-item::after {
     content: '';
     position: absolute;
@@ -297,6 +301,198 @@ body {
     width: 30px;
     height: 30px;
 }
+
+/* Quiz Progress Specific Styles */
+.quiz-progress-header img {
+    max-width: 400px;
+    height: auto;
+}
+
+.quiz-scores-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 20px;
+    flex: unset; 
+    overflow-y: auto;
+    position: relative;
+    z-index: 2;
+    height: 267px; 
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    margin-bottom: 15px; /* Add space between container and button */
+}
+
+.score-item {
+    background: #FFFFF4;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 80px;
+    flex-shrink: 0;
+    width: 100%;
+}
+
+.score-icon {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.score-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.score-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.score-label {
+    color: #FFA500;
+    font-size: 16px;
+    font-weight: 500;
+    width: 100%;         /* Add this line */
+}
+
+.score-value {
+    font-size: 26px;
+    font-weight: bold;
+    color: #6b4db2;
+    margin: 0 auto;      /* Add this line */
+}
+
+.achievement-badge {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.achievement-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.lesson-progress-btn {
+    background: #FFFFF4;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    margin: 0 0 20px 20px; /* Left aligned */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    color: #FFA500;
+    font-weight: 500;
+    transition: transform 0.2s ease;
+    width: fit-content;
+    position: relative;
+    z-index: 2;
+    text-align: left;
+}
+
+.lesson-progress-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Hide scrollbar for webkit browsers */
+.quiz-scores-container::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for Firefox */
+.quiz-scores-container {
+    scrollbar-width: none;
+}
+
+/* Hide scrollbar for IE/Edge */
+.quiz-scores-container {
+    -ms-overflow-style: none;
+}
+
+.back-arrow {
+    width: 30px;
+    height: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .quiz-scores-container {
+        gap: 12px;
+        padding: 0 15px;
+        max-height: calc(70px * 3 + 24px); /* Adjusted for smaller screens */
+    }
+
+    .score-item {
+        padding: 12px;
+        min-height: 70px;
+    }
+
+    .score-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    .score-label {
+        font-size: 14px;
+    }
+
+    .score-value {
+        font-size: 20px;
+    }
+
+    .lesson-progress-btn {
+        margin-left: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .quiz-scores-container {
+        height: 210px; /* (60px per item * 3) + (10px gap * 2) */
+        gap: 10px;
+    }
+}
+
+    .score-item {
+        padding: 10px;
+        min-height: 60px;
+    }
+
+    .score-icon {
+        width: 60;
+        height: 60px;
+    }
+
+    .achievement-badge {
+        width: 60px;
+        height: 60px;
+    }
+
+    .score-label {
+        font-size: 16px;
+    }
+
+    .score-value {
+        font-size: 26px;
+    }
+
+    .lesson-progress-btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-left: 12px;
+    }
 
 /* Responsive Design */
 @media (max-width: 768px) {
