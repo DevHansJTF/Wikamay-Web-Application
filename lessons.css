@@ -1,0 +1,148 @@
+/* Lesson Header Styles */
+.lesson-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+.lesson-header-content {
+    background: #FFFFF4;
+    border-radius: 20px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    height: 150px;  /* Increased height to accommodate larger icon */
+}
+
+.lesson-title-img {
+    height: 45px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.lesson-subtitle {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;  /* Take remaining space */
+}
+
+
+.lesson-header-content {
+    background: #FFFFF4;
+    border-radius: 20px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Center the content horizontally */
+    gap: 5px;
+}
+
+.lesson-text {
+    color: #FFA500;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.lesson-icon {
+    width: 100px;  /* Increased to 100px */
+    height: 100px;  /* Increased to 100px */
+    object-fit: contain;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Lesson Content Styles */
+.lesson-content {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.lesson-main-content {
+    width: 200px;
+    height: 250px;
+    background: rgba(158, 77, 178, 0.5);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.lesson-video-container, 
+.lesson-camera-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+}
+
+/* Lesson Navigation Buttons */
+.lesson-nav-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+}
+
+.lesson-nav-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Lesson Return Button */
+.lesson-return-btn {
+    position: relative;
+    z-index: 2;
+    background: #FFFFF4;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin: 0 0 20px 20px;
+    width: fit-content;
+    color: #FFA500;
+    font-weight: 500;
+    text-align: left;
+}
+
+.lesson-back-arrow {
+    width: 25px;
+    height: 25px;
+}
+
+.lesson-play-btn {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}

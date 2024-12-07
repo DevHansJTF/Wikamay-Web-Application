@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikamay - Lessons</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="lessons.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="splash-background">
+            <img src="./images/watersplash.png" alt="background splash">
+        </div>
+
+        <div class="lesson-header">
+            <div class="lesson-header-content">
+                <img src="./images/alph_header.png" alt="Alphabet" class="lesson-title-img">
+                <div class="lesson-subtitle">
+                    <span id="lesson-text" class="lesson-text">Let's learn the Letter A</span>
+                    <span id="practice-text" class="lesson-text hidden">It's your turn!</span>
+                    <img id="lesson-icon" src="./images/letter_a.png" alt="Letter A" class="lesson-icon">
+                    <img id="practice-icon" src="./images/hand_a.png" alt="Hand Sign" class="lesson-icon hidden">
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson-content">
+            <button class="lesson-nav-btn prev-btn">
+                <img src="./images/prev_button.png" alt="Previous">
+            </button>
+
+            <div class="lesson-main-content">
+                <div id="lesson-video-view">
+                    <div class="lesson-video-container">
+                        CONTAINER FOR VIDEO LESSON
+                        <img src="./images/play_button.png" alt="Play" class="lesson-play-btn">
+                    </div>
+                </div>
+
+                <div id="lesson-practice-view" class="hidden">
+                    <div class="lesson-camera-container">
+                        CONTAINER FOR CAMERA LIVE RECOGNITION
+                    </div>
+                </div>
+            </div>
+
+            <button class="lesson-nav-btn next-btn">
+                <img src="./images/next_button.png" alt="Next">
+            </button>
+        </div>
+
+        <button class="lesson-return-btn">
+            <img src="./images/prev_button.png" alt="Back" class="lesson-back-arrow">
+            Return to <br> Lessons
+        </button>
+
+        <div class="navbar">
+            <div class="nav-item">
+                <img src="./images/learn.png" alt="Learn">
+            </div>
+            <div class="nav-item">
+                <img src="./images/quiz.png" alt="Quiz">
+            </div>
+            <div class="nav-item">
+                <img src="./images/progress.png" alt="Progress">
+            </div>
+        </div>
+    </div>
+
+    <script src="lessons.js"></script>
+</body>
+</html>
