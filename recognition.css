@@ -1,0 +1,212 @@
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    height: 620px;
+    background: #ea84f5;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+    overflow: hidden;
+}
+
+.game-header {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-title-img {
+    height: 25px;
+    object-fit: contain;
+    margin-bottom: -15px; /* Negative margin to overlap */
+    z-index: 3; /* Ensure it stays above the content */
+}
+
+.game-header-content {
+    background: #FFFFF4;
+    border-radius: 20px;
+    padding: 15px 20px;
+    width: 100%;
+    height: 110px; /* Reduced height */
+    display: flex;
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+.game-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; /* Take full width */
+    max-width: 400px; /* Limit width for better centering */
+    gap: 20px;
+}
+
+.question-text {
+    color: #333;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0; /* Remove bottom margin */
+}
+
+.hand-sign-img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    background: white;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.game-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    padding: 0 10px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 110px);
+    gap: 15px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.option-img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    cursor: pointer;
+    background: #000;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.skip-btn {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    margin-top: -20px;
+}
+
+.timer-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.timer-text {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Return Button */
+.game-return-btn {
+    position: relative;
+    z-index: 2;
+    background: #FFFFF4;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin: 0 0 20px 20px;
+    width: fit-content;
+    color: #FFA500;
+    font-weight: 500;
+    text-align: left;
+}
+
+.back-arrow {
+    width: 25px;
+    height: 25px;
+}
+
+/* Navbar - Updated to match signrace.css exactly */
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 25px 0;
+    background: #FFFFF4;
+    border-radius: 25px 25px 0 0;
+    margin: 0 calc(-1 * var(--app-padding));
+    margin-bottom: calc(-1 * var(--app-padding));
+    margin-top: auto;
+    min-height: 100px;
+    position: relative;
+    bottom: 0;
+}
+
+.nav-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+}
+
+.nav-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+    margin-bottom: 20px;
+}
+
+.nav-item:hover img {
+    transform: translateY(-5px);
+}
+
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: #ea84f5;
+    transition: width 0.3s ease, left 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+@media (max-width: 480px) {
+    .hand-sign-img {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .option-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .skip-btn {
+        right: 20px;
+        width: 40px;
+        height: 40px;
+    }
+}

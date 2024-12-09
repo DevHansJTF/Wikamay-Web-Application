@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikamay - ASL Sign Recognition</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="recognition.css">
+</head>
+<body>
+    <div class="app-container">
+        <div class="splash-background">
+            <img src="./images/watersplash.png" alt="background splash">
+        </div>
+
+        <div class="game-header">
+            <img src="./images/recognition_header.png" alt="ASL SIGN RECOGNITION" class="game-title-img">
+            <div class="game-header-content">
+                <div class="game-subtitle">
+                    <p class="question-text">What is the meaning of this sign?</p>
+                    <img src="" alt="Hand Sign" class="hand-sign-img">
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-content">
+            <div class="options-grid">
+                <img src="" alt="Option A" class="option-img" data-sign="">
+                <img src="" alt="Option B" class="option-img" data-sign="">
+                <img src="" alt="Option C" class="option-img" data-sign="">
+                <img src="" alt="Option D" class="option-img" data-sign="">
+            </div>
+            <img src="./images/next_button.png" alt="Skip" class="skip-btn">
+            <div class="timer-container">
+                <span class="timer-text">60 Seconds Left</span>
+            </div>
+        </div>
+
+        <button class="game-return-btn">
+            <img src="./images/prev_button.png" alt="Back" class="back-arrow">
+            Return to <br> Quizzes
+        </button>
+
+        <div class="navbar">
+            <div class="nav-item">
+                <img src="./images/learn.png" alt="Learn">
+            </div>
+            <div class="nav-item">
+                <img src="./images/quiz.png" alt="Quiz">
+            </div>
+            <div class="nav-item">
+                <img src="./images/progress.png" alt="Progress">
+            </div>
+        </div>
+    </div>
+</body>
+<script src="recognition.js"></script>
+</html>
