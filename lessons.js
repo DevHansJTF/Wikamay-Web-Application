@@ -374,13 +374,21 @@ function handlePrediction(data) {
             // Stop recognition temporarily
             lessonState.recognitionActive = false;
             
-            // Move to next lesson after delay
+            // Check if this is the last item
+            const isLastItem = lessonState.currentIndex === lessonState.config.items.length - 1;
+            
             setTimeout(() => {
-                console.log('Moving to next item...');
-                lessonState.currentMode = 'learn';
-                lessonState.currentIndex++;
-                stopRecognition();
-                updateUI();
+                if (isLastItem) {
+                    console.log('Lesson completed, returning to main menu');
+                    localStorage.removeItem('currentLesson');
+                    window.location.href = 'index.html';
+                } else {
+                    console.log('Moving to next item...');
+                    lessonState.currentMode = 'learn';
+                    lessonState.currentIndex++;
+                    stopRecognition();
+                    updateUI();
+                }
             }, 1500);
         }
     }
