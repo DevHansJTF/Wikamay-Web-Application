@@ -301,6 +301,7 @@ async function initializeRecognition() {
         recognitionIframe.style.width = '100%';
         recognitionIframe.style.height = '100%';
         recognitionIframe.style.border = 'none';
+        recognitionIframe.style.borderRadius = '15px';
         recognitionIframe.allow = "camera *";
         
         // Set up load error handling
@@ -353,8 +354,17 @@ function handlePrediction(data) {
     if (data.predicted_character) {
         console.log(`Predicted: ${data.predicted_character}, Target: ${lessonState.currentItem}`);
         
-        // Case-insensitive comparison
-        if (data.predicted_character.toUpperCase() === lessonState.currentItem.toUpperCase()) {
+        // Handle both letter and number predictions
+        let isMatch = false;
+        if (lessonState.lessonType === 'numbers') {
+            // Convert both to numbers and compare
+            isMatch = parseInt(data.predicted_character) === parseInt(lessonState.currentItem);
+        } else {
+            // Case-insensitive comparison for letters
+            isMatch = data.predicted_character.toUpperCase() === lessonState.currentItem.toUpperCase();
+        }
+        
+        if (isMatch) {
             console.log('Correct prediction detected!');
             lastPredictionTime = currentTime;
             
@@ -366,7 +376,7 @@ function handlePrediction(data) {
             
             // Move to next lesson after delay
             setTimeout(() => {
-                console.log('Moving to next letter...');
+                console.log('Moving to next item...');
                 lessonState.currentMode = 'learn';
                 lessonState.currentIndex++;
                 stopRecognition();
@@ -433,15 +443,18 @@ function startRecognition() {
     lessonState.recognitionActive = true;
     lastPredictionTime = 0;
 
+    // Determine model type based on lesson type
+    const modelType = lessonState.lessonType === 'numbers' ? 'number' : 'alphabet';
+
     try {
         recognitionIframe.contentWindow.postMessage({
             type: 'START_RECOGNITION',
             data: {
-                modelType: lessonState.lessonType,
+                modelType: modelType,
                 currentItem: lessonState.currentItem
             }
         }, 'http://127.0.0.1:5000');
-        console.log(`Recognition started for ${lessonState.currentItem}`);
+        console.log(`Recognition started for ${lessonState.currentItem} using ${modelType} model`);
     } catch (error) {
         console.error('Error starting recognition:', error);
         handleCameraError('Failed to start recognition system');

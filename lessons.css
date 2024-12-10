@@ -105,8 +105,8 @@
 
 /* Camera Container */
 .lesson-camera-container {
-    width: 100%;
-    height: 100%;
+    width: 330px !important;
+    height: 240px !important;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,6 +115,13 @@
     overflow: hidden;
     color: white;
     font-size: 18px;
+}
+
+.lesson-camera-container iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+    border-radius: 15px;
 }
 
 /* Navigation Buttons */
