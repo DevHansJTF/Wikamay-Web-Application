@@ -7,3 +7,8 @@ document.querySelector('.menu-item.race').addEventListener('click', () => {
 document.querySelector('.menu-item.recognition').addEventListener('click', () => {
     window.location.href = 'recognition.html';
 });
+
+// Add to quiz.js
+document.querySelector('.menu-item.vocabulary').addEventListener('click', () => {
+    window.location.href = 'vocabulary.html';
+});

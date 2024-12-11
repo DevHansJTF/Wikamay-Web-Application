@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wikamay - ASL Sign Race</title>
+    <title>ASL Vocabulary Game</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="signrace.css">
+    <link rel="stylesheet" href="vocabulary.css">
 </head>
 <body>
     <div class="app-container">
@@ -14,33 +14,28 @@
         </div>
 
         <div class="game-header">
-            <img src="./images/asl_race_header.png" alt="ASL GUESSING GAME" class="game-title-img">
-            <div class="game-header-content">
-                <div class="game-subtitle">
-                    <span class="game-text">Guess the sign!</span>
-                    <img src="./images/letter_a.png" alt="Letter A" class="game-icon">
-                </div>
+            <div class="game-title">
+                <img src="./images/vocab_header.png" alt="ASL VOCABULARY GAME">
+            </div>
+            <div class="game-subtitle">
+                Match as many as you can!
             </div>
         </div>
 
         <div class="game-content">
-            <div class="camera-section">
-                <div class="camera-container">
-                    CONTAINER FOR CAMERA LIVE RECOGNITION
-                </div>
-                <button class="skip-btn">
-                    <img src="./images/next_button.png" alt="Skip">
-                </button>
+            <div class="matching-grid">
+                <!-- Grid items will be dynamically populated -->
             </div>
+
             <div class="timer-container">
-                <span class="timer-text">60 Seconds Left</span>
+                <div class="timer-text">60 Seconds Left</div>
             </div>
         </div>
 
-        <button class="game-return-btn">
+        <div class="game-return-btn">
             <img src="./images/prev_button.png" alt="Back" class="back-arrow">
             Return to Quizzes
-        </button>
+        </div>
 
         <div class="navbar">
             <div class="nav-item">
@@ -54,7 +49,8 @@
             </div>
         </div>
     </div>
+
+    <script src="navbar.js"></script>
+    <script src="vocabulary.js"></script>
 </body>
-<script src="navbar.js"></script>
-<script src="signrace.js"></script>
-</html>
+</html> 
