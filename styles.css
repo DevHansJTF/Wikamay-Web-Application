@@ -427,6 +427,20 @@ body {
     height: 30px;
 }
 
+.new-highscore {
+    color: #FFA500;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 24px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .quiz-scores-container {

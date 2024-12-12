@@ -34,6 +34,7 @@ const styleSheet = document.createElement("style");
 styleSheet.textContent = notificationStyles;
 document.head.appendChild(styleSheet);
 
+
 // Lesson Configurations
 const lessonConfigs = {
     alphabet: {
@@ -45,7 +46,8 @@ const lessonConfigs = {
         imagePrefix: 'letter',
         handPrefix: 'hand_letter',
         videoPrefix: 'alphabet_video',
-        fileExtension: 'png'
+        fileExtension: 'png',
+        hasPractice: true
     },
     numbers: {
         title: 'numbers',
@@ -55,7 +57,8 @@ const lessonConfigs = {
         imagePrefix: 'number',
         handPrefix: 'hand_number',
         videoPrefix: 'number_video',
-        fileExtension: 'png'
+        fileExtension: 'png',
+        hasPractice: true
     },
     emotions: {
         title: 'emotions',
@@ -65,27 +68,30 @@ const lessonConfigs = {
         imagePrefix: 'emotion',
         handPrefix: 'hand_emotion',
         videoPrefix: 'emotion_video',
-        fileExtension: 'png'
+        fileExtension: 'png',
+        hasPractice: false
     },   
     greetings: {
         title: 'greetings',
         headerImage: 'gre_header.png',
         itemPrefix: 'Greeting',
-        items: ['Goodbye', 'Hello', 'Help', 'Nice to meet you', 'No', 'Please', 'Sorry', 'Thank you', 'Yes'],
+        items: ['Goodbye', 'Hello', 'Help', 'No', 'Please', 'Sorry', 'Yes'],
         imagePrefix: 'greeting',
         handPrefix: 'hand_greeting',
         videoPrefix: 'greeting_video',
-        fileExtension: 'gif'
+        fileExtension: 'gif',
+        hasPractice: false
     },
     animals: {
         title: 'animals',
         headerImage: 'ani_header.png',
         itemPrefix: 'Animal',
-        items: ['Bear', 'Bird', 'Cat',  'Cow', 'Rabbit'],
+        items: ['Bear', 'Bird', 'Cat', 'Cow', 'Rabbit'],
         imagePrefix: 'animal',
         handPrefix: 'hand_animal',
         videoPrefix: 'animal_video',
-        fileExtension: 'png'
+        fileExtension: 'png',
+        hasPractice: false
     }
 };
  
@@ -104,6 +110,7 @@ const lessonState = {
         return lessonConfigs[this.lessonType];
     }
 };
+
 
  
 // DOM Elements
@@ -140,6 +147,11 @@ function initializeLesson() {
 function updateUI() {
     console.log('Updating UI, current state:', lessonState);
     const { config, currentItem } = lessonState;
+    
+    // Always show learn mode for lessons without practice
+    if (!config.hasPractice) {
+        lessonState.currentMode = 'learn';
+    }
  
     if (lessonState.currentMode === 'learn') {
         learnText.classList.remove('hidden');
@@ -166,11 +178,28 @@ function updateUI() {
         practiceIcon.src = `./images/${config.handPrefix}_${currentItem.toLowerCase()}.png`;
     }
  
+    // Update navigation buttons visibility
+    updateNavigationButtons();
+}
+
+function updateNavigationButtons() {
+    const { config } = lessonState;
+    const isLastItem = lessonState.currentIndex === config.items.length - 1;
+    
+    // Hide previous button on first item in learn mode
     prevBtn.style.visibility = 
         lessonState.currentIndex === 0 && lessonState.currentMode === 'learn' 
             ? 'hidden' : 'visible';
+    
+    // For lessons without practice
+    if (!config.hasPractice) {
+        nextBtn.style.visibility = isLastItem ? 'hidden' : 'visible';
+        return;
+    }
+    
+    // For lessons with practice
     nextBtn.style.visibility = 
-        lessonState.currentIndex === lessonState.config.items.length - 1 && lessonState.currentMode === 'practice' 
+        isLastItem && lessonState.currentMode === 'practice' 
             ? 'hidden' : 'visible';
 }
 
@@ -189,34 +218,56 @@ videoElement.addEventListener('ended', () => {
     lessonState.isPlaying = false;
     videoElement.currentTime = 0;
     console.log('Video ended');
+    
+    if (!lessonState.config.hasPractice) {
+        // For lessons without practice, mark as complete
+        progressTracking.updateLessonProgress(lessonState.lessonType, lessonState.currentItem, true);
+    } else {
+        // For lessons with practice, only mark lesson as complete
+        progressTracking.updateLessonProgress(lessonState.lessonType, lessonState.currentItem, true, false);
+    }
 });
+
 
 // Navigation handlers
 function handleNext() {
     console.log('Handle next clicked. Current mode:', lessonState.currentMode);
-    if (lessonState.currentMode === 'learn') {
-        // Switch to practice mode
-        lessonState.currentMode = 'practice';
-        showPracticeView();
-    } else {
-        // When practice is successful, move to next letter in learn mode
-        lessonState.currentMode = 'learn';
+    const { config } = lessonState;
+    
+    if (!config.hasPractice) {
+        // For lessons without practice, simply move to next item
         lessonState.currentIndex++;
-        stopRecognition();
+    } else {
+        // For lessons with practice
+        if (lessonState.currentMode === 'learn') {
+            lessonState.currentMode = 'practice';
+            showPracticeView();
+        } else {
+            lessonState.currentMode = 'learn';
+            lessonState.currentIndex++;
+            stopRecognition();
+        }
     }
     updateUI();
 }
  
 function handlePrevious() {
     console.log('Handle previous clicked. Current mode:', lessonState.currentMode);
-    if (lessonState.currentMode === 'practice') {
-        // Go back to learn mode of current letter
-        lessonState.currentMode = 'learn';
-    } else {
-        // Go back to previous letter's practice mode
+    const { config } = lessonState;
+    
+    if (!config.hasPractice) {
+        // For lessons without practice, simply move to previous item
         lessonState.currentIndex--;
-        lessonState.currentMode = 'practice';
+    } else {
+        // For lessons with practice
+        if (lessonState.currentMode === 'practice') {
+            lessonState.currentMode = 'learn';
+        } else {
+            lessonState.currentIndex--;
+            lessonState.currentMode = 'practice';
+        }
     }
+    
     videoElement.pause();
     videoElement.currentTime = 0;
     updateUI();
@@ -242,6 +293,8 @@ let retryCount = 0;
 const MAX_RETRIES = 3;
 
 function showPracticeView() {
+    if (!lessonState.config.hasPractice) return;
+    
     console.log('Showing practice view...');
     document.getElementById('lesson-video-view').classList.add('hidden');
     document.getElementById('lesson-practice-view').classList.remove('hidden');
@@ -354,13 +407,10 @@ function handlePrediction(data) {
     if (data.predicted_character) {
         console.log(`Predicted: ${data.predicted_character}, Target: ${lessonState.currentItem}`);
         
-        // Handle both letter and number predictions
         let isMatch = false;
         if (lessonState.lessonType === 'numbers') {
-            // Convert both to numbers and compare
             isMatch = parseInt(data.predicted_character) === parseInt(lessonState.currentItem);
         } else {
-            // Case-insensitive comparison for letters
             isMatch = data.predicted_character.toUpperCase() === lessonState.currentItem.toUpperCase();
         }
         
@@ -368,13 +418,13 @@ function handlePrediction(data) {
             console.log('Correct prediction detected!');
             lastPredictionTime = currentTime;
             
-            // Show success notification
             showSuccessNotification();
             
-            // Stop recognition temporarily
+            // Update both lesson and practice completion
+            progressTracking.updateLessonProgress(lessonState.lessonType, lessonState.currentItem, true, true);
+            
             lessonState.recognitionActive = false;
             
-            // Check if this is the last item
             const isLastItem = lessonState.currentIndex === lessonState.config.items.length - 1;
             
             setTimeout(() => {

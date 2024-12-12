@@ -424,14 +424,18 @@
 
     function endGame() {
         clearInterval(gameState.timerInterval);
-        gameState.timerInterval = null; // Add this line to ensure timer is cleared
-        stopRecognition(); // Stop recognition before showing dialog
+        gameState.timerInterval = null;
+        stopRecognition();
+        
+        // Update high score
+        const isNewHighScore = quizProgress.updateHighScore('signrace', gameState.score);
         
         const dialogHTML = `
             <div class="score-dialog-overlay">
                 <div class="score-dialog">
                     <div class="score-title">Your Final Score:</div>
                     <div class="score-value">${gameState.score}</div>
+                    ${isNewHighScore ? '<div class="new-highscore">New High Score!</div>' : ''}
                     <div class="score-buttons">
                         <button class="score-button" id="returnToQuizzes">Return to Quizzes</button>
                         <button class="score-button" id="playAgain">Play Again</button>

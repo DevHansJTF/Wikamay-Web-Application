@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WIKAMAY - Quiz</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Override menu grid styles for 2x2 layout */
+        .menu-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 35px !important;
+            padding: 0 40px !important;
+        }
+
+        /* Adjust menu item size for better fit */
+        .menu-item {
+            max-width: 150px !important;
+            margin: 0 auto !important;
+        }
+    </style>
 </head>
 <body>
     <div class="app-container">
@@ -19,14 +33,6 @@
         </div>
 
         <div class="menu-grid">
-            <div class="menu-item guessing">
-                <img src="./images/guess_menu.png" alt="ASL Guessing Game">
-            </div>
-            
-            <div class="menu-item spelling">
-                <img src="./images/spell_menu.png" alt="ASL Spelling Challenge">
-            </div>
-            
             <div class="menu-item race">
                 <img src="./images/race_menu.png" alt="ASL Sign Race">
             </div>
@@ -59,4 +65,5 @@
 </body>
 <script src="navbar.js"></script>
 <script src="quiz.js"></script>
+<script src="background-music.js"></script>
 </html>

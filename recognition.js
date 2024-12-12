@@ -154,11 +154,15 @@ function startTimer() {
 function endGame() {
     clearInterval(gameState.timerInterval);
     
+    // Update high score
+    const isNewHighScore = quizProgress.updateHighScore('recognition', gameState.score);
+    
     const dialogHTML = `
         <div class="score-dialog-overlay">
             <div class="score-dialog">
                 <div class="score-title">Your Final Score:</div>
                 <div class="score-value">${gameState.score}</div>
+                ${isNewHighScore ? '<div class="new-highscore">New High Score!</div>' : ''}
                 <div class="score-buttons">
                     <button class="score-button" id="returnToQuizzes">Return to Quizzes</button>
                     <button class="score-button" id="playAgain">Play Again</button>
