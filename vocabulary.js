@@ -1,9 +1,75 @@
+// Add styles for score dialog
+const dialogStyles = `
+    .score-dialog-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .score-dialog {
+        background: white;
+        border-radius: 24px;
+        padding: 32px;
+        width: 320px;
+        text-align: center;
+    }
+
+    .score-title {
+        color: #FFA500;
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .score-value {
+        color: #FFA500;
+        font-size: 72px;
+        font-weight: bold;
+        margin-bottom: 32px;
+    }
+
+    .score-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .score-button {
+        padding: 12px 24px;
+        background: white;
+        border: 2px solid #FFA500;
+        border-radius: 9999px;
+        color: #FFA500;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    .score-button:hover {
+        background: #FFF4E6;
+    }
+`;
+
+const styleSheet = document.createElement("style");
+styleSheet.textContent = dialogStyles;
+document.head.appendChild(styleSheet);
+
+
 // Game State
 const gameState = {
     timeLeft: 60,
     timerInterval: null,
     selectedItem: null,
     matchedPairs: 0,
+    totalPairs: 0,  // Track total pairs matched across all sets
     currentSet: [],
     itemSets: []
 };
@@ -15,7 +81,6 @@ function generateItemSets() {
     const numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
     const allItems = [...letters, ...numbers];
     
-    // Shuffle and create sets of 3 pairs (6 items total)
     const shuffled = allItems.sort(() => Math.random() - 0.5);
     const sets = [];
     
@@ -80,31 +145,28 @@ function handleItemClick(event) {
     if (!item || item.classList.contains('matched')) return;
     
     if (!gameState.selectedItem) {
-        // First selection
         gameState.selectedItem = item;
         item.classList.add('selected');
     } else if (gameState.selectedItem !== item) {
-        // Second selection
         const firstItem = gameState.currentSet.find(i => i.id === gameState.selectedItem.dataset.id);
         const secondItem = gameState.currentSet.find(i => i.id === item.dataset.id);
         
         if (firstItem.match === secondItem.id) {
-            // Match found
             gameState.selectedItem.classList.add('matched');
             item.classList.add('matched');
             gameState.matchedPairs++;
+            gameState.totalPairs++; // Increment total pairs count
             
             if (gameState.matchedPairs === 3) {
-                // All pairs matched, load next set
                 setTimeout(loadNextSet, 500);
             }
         }
         
-        // Reset selection
         gameState.selectedItem.classList.remove('selected');
         gameState.selectedItem = null;
     }
 }
+
 
 // Load next set of items
 function loadNextSet() {
@@ -135,19 +197,50 @@ function startTimer() {
 // End game handling
 function endGame() {
     clearInterval(gameState.timerInterval);
-    // You can add score saving logic here
-    setTimeout(() => {
+    
+    const dialogHTML = `
+        <div class="score-dialog-overlay">
+            <div class="score-dialog">
+                <div class="score-title">Your Final Score:</div>
+                <div class="score-value">${gameState.totalPairs}</div>
+                <div class="score-buttons">
+                    <button class="score-button" id="returnToQuizzes">Return to Quizzes</button>
+                    <button class="score-button" id="playAgain">Play Again</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.insertAdjacentHTML('beforeend', dialogHTML);
+    
+    document.getElementById('returnToQuizzes').addEventListener('click', () => {
         window.location.href = 'quiz.html';
-    }, 1500);
+    });
+    
+    document.getElementById('playAgain').addEventListener('click', () => {
+        document.querySelector('.score-dialog-overlay').remove();
+        
+        // Reset all game state
+        gameState.timeLeft = 60;
+        gameState.matchedPairs = 0;
+        gameState.totalPairs = 0;  // Reset total pairs count
+        gameState.selectedItem = null;
+        gameState.itemSets = generateItemSets();
+        
+        document.querySelector('.timer-text').textContent = '60 Seconds Left';
+        
+        loadNextSet();
+        startTimer();
+    });
 }
 
 // Initialize the game
 function initializeGame() {
     gameState.itemSets = generateItemSets();
+    gameState.totalPairs = 0;  // Reset total pairs count on game start
     loadNextSet();
     startTimer();
     
-    // Add event listeners
     document.querySelector('.matching-grid').addEventListener('click', handleItemClick);
     document.querySelector('.game-return-btn').addEventListener('click', () => {
         clearInterval(gameState.timerInterval);
@@ -155,5 +248,4 @@ function initializeGame() {
     });
 }
 
-// Start game when document is ready
 document.addEventListener('DOMContentLoaded', initializeGame);
