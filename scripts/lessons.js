@@ -391,8 +391,6 @@ async function initializeRecognition() {
 }
 
 function handlePrediction(data) {
-    console.log('Received prediction:', data);
-    
     if (!lessonState.recognitionActive) {
         console.log('Recognition not active, ignoring prediction');
         return;
@@ -417,6 +415,11 @@ function handlePrediction(data) {
         if (isMatch) {
             console.log('Correct prediction detected!');
             lastPredictionTime = currentTime;
+            
+            // Play random celebration sound
+            if (window.practiceSound) {
+                window.practiceSound.playRandomSound();
+            }
             
             showSuccessNotification();
             
@@ -443,7 +446,6 @@ function handlePrediction(data) {
         }
     }
 }
-
 function showSuccessNotification() {
     const notification = document.createElement('div');
     notification.className = 'success-notification';
