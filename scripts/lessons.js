@@ -86,7 +86,7 @@ const lessonConfigs = {
         title: 'animals',
         headerImage: 'ani_header.png',
         itemPrefix: 'Animal',
-        items: ['Bear', 'Bird', 'Cat', 'Cow', 'Rabbit'],
+        items: ['Bear', 'Cow', 'Rabbit', 'Bird', 'Cat'],
         imagePrefix: 'animal',
         handPrefix: 'hand_animal',
         videoPrefix: 'animal_video',

@@ -17,6 +17,9 @@ class Settings {
         if (settingsIcon) {
             settingsIcon.parentElement.addEventListener('click', () => this.toggleMenu());
         }
+
+        // Bind the toggleMenu method to the class instance
+        this.toggleMenu = this.toggleMenu.bind(this);
     }
 
     addStyles() {
@@ -82,7 +85,7 @@ class Settings {
                 cursor: pointer;
             }
 
-            .close-button {
+            .settings-close-btn {
                 position: absolute;
                 top: 16px;
                 right: 16px;
@@ -92,9 +95,9 @@ class Settings {
                 padding: 8px;
             }
 
-            .close-button img {
-                width: 24px;
-                height: 24px;
+            .settings-close-btn img {
+                width: 30px;
+                height: 30px;
             }
         `;
 
@@ -118,7 +121,7 @@ class Settings {
                         <input type="range" class="volume-slider" id="soundVolume" 
                                min="0" max="1" step="0.1" value="${this.soundVolume}">
                     </div>
-                    <button class="close-button">
+                    <button class="settings-close-btn" type="button">
                         <img src="./images/close.png" alt="Close">
                     </button>
                 </div>
@@ -131,16 +134,29 @@ class Settings {
         this.overlay = document.querySelector('.settings-overlay');
         this.musicSlider = document.getElementById('musicVolume');
         this.soundSlider = document.getElementById('soundVolume');
-        const closeButton = document.querySelector('.close-button');
+        
+        // Get close button and add single event listener
+        const closeButton = document.querySelector('.settings-close-btn');
+        
+        if (closeButton) {
+            closeButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.toggleMenu();
+            });
+        }
+
+        // Add click handler to overlay for closing when clicking outside
+        this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+                this.toggleMenu();
+            }
+        });
 
         this.musicSlider.addEventListener('input', (e) => this.updateMusicVolume(e.target.value));
         this.soundSlider.addEventListener('input', (e) => this.updateSoundVolume(e.target.value));
-        closeButton.addEventListener('click', () => this.toggleMenu());
-        this.overlay.addEventListener('click', (e) => {
-            if (e.target === this.overlay) this.toggleMenu();
-        });
     }
-
+    
     toggleMenu() {
         this.isOpen = !this.isOpen;
         this.overlay.style.display = this.isOpen ? 'block' : 'none';
